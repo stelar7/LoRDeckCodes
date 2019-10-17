@@ -67,16 +67,11 @@ public class Base32
             
         }
         
-        System.out.print("decode: ");
-        System.out.println(Arrays.toString(result));
         return result;
     }
     
     public static String encode(byte[] data)
     {
-        System.out.print("encode: ");
-        System.out.println(Arrays.toString(data));
-        
         if (data.length == 0)
         {
             return "";

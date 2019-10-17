@@ -38,7 +38,6 @@ public class TestLorDeck
         
         for (int i = 0; i < decks.size(); i++)
         {
-            System.out.println(codes.get(i));
             String encoded = LoRDeck.encode(decks.get(i));
             Assert.assertEquals("Decks are not equal", codes.get(i), encoded);
             
