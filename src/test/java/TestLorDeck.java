@@ -49,7 +49,7 @@ public class TestLorDeck
     @Test
     public void testDecodeEncode()
     {
-        String DECK_CODE = "CEBAIAIFB4WDANQIAEAQGDAUDAQSIJZUAIAQCBIFAEAQCBAA";
+        String DECK_CODE = "CEBAIAIFB4WDANQIAEAQGDAUDAQSIJZUAIAQCAIEAEAQKBIA";
         
         List<LorCardCount> deck   = LoRDeck.decode(DECK_CODE);
         String             result = LoRDeck.encode(deck);

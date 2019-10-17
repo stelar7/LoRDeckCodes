@@ -217,7 +217,7 @@ public class LoRDeck
         
         // sort outer list by size, then by inner list code, then sort inner list by code
         Comparator<List<LorCardCount>> c  = Comparator.comparing(List::size);
-        Comparator<List<LorCardCount>> c2 = Comparator.comparing((List<LorCardCount> a) -> a.get(0).getCardCode()).reversed();
+        Comparator<List<LorCardCount>> c2 = Comparator.comparing((List<LorCardCount> a) -> a.get(0).getCardCode());
         result.sort(c.thenComparing(c2));
         for (List<LorCardCount> group : result)
         {
