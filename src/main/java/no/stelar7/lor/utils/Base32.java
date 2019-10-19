@@ -1,4 +1,4 @@
-package no.stelar7.lor;
+package no.stelar7.lor.utils;
 
 import java.util.*;
 
@@ -8,7 +8,7 @@ public class Base32
     private static final char[]                  CHARS     = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray();
     private static final int                     MASK      = CHARS.length - 1;
     private static final int                     SHIFT     = Integer.numberOfTrailingZeros(CHARS.length);
-    private static final Map<Character, Integer> CHAR_MAP  = new HashMap<>()
+    private static final Map<Character, Integer> CHAR_MAP  = new HashMap<Character, Integer>()
     {{
         for (int i = 0; i < CHARS.length; i++)
         {
@@ -114,7 +114,7 @@ public class Base32
             int padding = 8 - (result.length() % 8);
             if (padding > 0)
             {
-                result.append("=".repeat(padding == 8 ? 0 : padding));
+                result.append(Utilities.padLeft("", "=", padding == 8 ? 0 : padding));
             }
         }
         

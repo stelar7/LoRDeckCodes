@@ -1,4 +1,4 @@
-import no.stelar7.lor.Base32;
+import no.stelar7.lor.utils.Base32;
 import org.junit.*;
 
 import java.nio.charset.StandardCharsets;

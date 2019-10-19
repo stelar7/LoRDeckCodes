@@ -1,4 +1,5 @@
 import no.stelar7.lor.*;
+import no.stelar7.lor.types.*;
 import org.junit.*;
 
 import java.io.InputStream;
@@ -16,8 +17,8 @@ public class TestLorDeck
             throw new RuntimeException("Unable to load test file");
         }
         
-        List<String>             codes = new ArrayList<>();
-        List<List<LorCardCount>> decks = new ArrayList<>();
+        List<String>  codes = new ArrayList<>();
+        List<LoRDeck> decks = new ArrayList<>();
         
         try (Scanner scanner = new Scanner(file))
         {
@@ -26,11 +27,11 @@ public class TestLorDeck
                 String line = scanner.nextLine();
                 codes.add(line);
                 
-                List<LorCardCount> deck = new ArrayList<>();
+                LoRDeck deck = new LoRDeck();
                 while (scanner.hasNextLine() && !(line = scanner.nextLine()).equalsIgnoreCase(""))
                 {
                     String[] parts = line.split(":");
-                    deck.add(new LorCardCount(parts[1], Integer.parseInt(parts[0])));
+                    deck.addCard(new LoRCard(parts[1]), Integer.parseInt(parts[0]));
                 }
                 decks.add(deck);
             }
@@ -38,10 +39,10 @@ public class TestLorDeck
         
         for (int i = 0; i < decks.size(); i++)
         {
-            String encoded = LoRDeck.encode(decks.get(i));
+            String encoded = LoRDeckCode.encode(decks.get(i));
             Assert.assertEquals("Decks are not equal", codes.get(i), encoded);
             
-            List<LorCardCount> decoded = LoRDeck.decode(encoded);
+            LoRDeck decoded = LoRDeckCode.decode(encoded);
             Assert.assertTrue("Did not produce same deck when re-coded", checkSameDeck(decks.get(i), decoded));
         }
     }
@@ -51,8 +52,8 @@ public class TestLorDeck
     {
         String DECK_CODE = "CEBAIAIFB4WDANQIAEAQGDAUDAQSIJZUAIAQCAIEAEAQKBIA";
         
-        List<LorCardCount> deck   = LoRDeck.decode(DECK_CODE);
-        String             result = LoRDeck.encode(deck);
+        LoRDeck deck   = LoRDeckCode.decode(DECK_CODE);
+        String  result = LoRDeckCode.encode(deck);
         
         Assert.assertEquals("Did not transform code to match!", DECK_CODE, result);
     }
@@ -61,13 +62,11 @@ public class TestLorDeck
     @Test
     public void testSmallDeck()
     {
-        List<LorCardCount> deck = new ArrayList<>()
-        {{
-            add(new LorCardCount("01DE002", 3));
-        }};
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(new LoRCard("01DE002"), 3);
         
-        String             code    = LoRDeck.encode(deck);
-        List<LorCardCount> decoded = LoRDeck.decode(code);
+        String  code    = LoRDeckCode.encode(deck);
+        LoRDeck decoded = LoRDeckCode.decode(code);
         
         Assert.assertTrue("Did not produce same deck when re-coded", checkSameDeck(deck, decoded));
     }
@@ -75,32 +74,30 @@ public class TestLorDeck
     @Test
     public void testLargeDeck()
     {
-        List<LorCardCount> deck = new ArrayList<>()
-        {{
-            add(new LorCardCount("01DE002", 3));
-            add(new LorCardCount("01DE003", 3));
-            add(new LorCardCount("01DE004", 3));
-            add(new LorCardCount("01DE005", 3));
-            add(new LorCardCount("01DE006", 3));
-            add(new LorCardCount("01DE007", 3));
-            add(new LorCardCount("01DE008", 3));
-            add(new LorCardCount("01DE009", 3));
-            add(new LorCardCount("01DE010", 3));
-            add(new LorCardCount("01DE011", 3));
-            add(new LorCardCount("01DE012", 3));
-            add(new LorCardCount("01DE013", 3));
-            add(new LorCardCount("01DE014", 3));
-            add(new LorCardCount("01DE015", 3));
-            add(new LorCardCount("01DE016", 3));
-            add(new LorCardCount("01DE017", 3));
-            add(new LorCardCount("01DE018", 3));
-            add(new LorCardCount("01DE019", 3));
-            add(new LorCardCount("01DE020", 3));
-            add(new LorCardCount("01DE021", 3));
-        }};
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(new LoRCard("01DE002"), 3);
+        deck.addCard(new LoRCard("01DE003"), 3);
+        deck.addCard(new LoRCard("01DE004"), 3);
+        deck.addCard(new LoRCard("01DE005"), 3);
+        deck.addCard(new LoRCard("01DE006"), 3);
+        deck.addCard(new LoRCard("01DE007"), 3);
+        deck.addCard(new LoRCard("01DE008"), 3);
+        deck.addCard(new LoRCard("01DE009"), 3);
+        deck.addCard(new LoRCard("01DE010"), 3);
+        deck.addCard(new LoRCard("01DE011"), 3);
+        deck.addCard(new LoRCard("01DE012"), 3);
+        deck.addCard(new LoRCard("01DE013"), 3);
+        deck.addCard(new LoRCard("01DE014"), 3);
+        deck.addCard(new LoRCard("01DE015"), 3);
+        deck.addCard(new LoRCard("01DE016"), 3);
+        deck.addCard(new LoRCard("01DE017"), 3);
+        deck.addCard(new LoRCard("01DE018"), 3);
+        deck.addCard(new LoRCard("01DE019"), 3);
+        deck.addCard(new LoRCard("01DE020"), 3);
+        deck.addCard(new LoRCard("01DE021"), 3);
         
-        String             code    = LoRDeck.encode(deck);
-        List<LorCardCount> decoded = LoRDeck.decode(code);
+        String  code    = LoRDeckCode.encode(deck);
+        LoRDeck decoded = LoRDeckCode.decode(code);
         
         Assert.assertTrue("Did not produce same deck when re-coded", checkSameDeck(deck, decoded));
     }
@@ -109,13 +106,11 @@ public class TestLorDeck
     @Test
     public void testMoreThan3Small()
     {
-        List<LorCardCount> deck = new ArrayList<>()
-        {{
-            add(new LorCardCount("01DE002", 4));
-        }};
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(new LoRCard("01DE002"), 4);
         
-        String             code    = LoRDeck.encode(deck);
-        List<LorCardCount> decoded = LoRDeck.decode(code);
+        String  code    = LoRDeckCode.encode(deck);
+        LoRDeck decoded = LoRDeckCode.decode(code);
         
         Assert.assertTrue("Did not produce same deck when re-coded", checkSameDeck(deck, decoded));
     }
@@ -123,32 +118,30 @@ public class TestLorDeck
     @Test
     public void testMoreThan3Large()
     {
-        List<LorCardCount> deck = new ArrayList<>()
-        {{
-            add(new LorCardCount("01DE002", 3));
-            add(new LorCardCount("01DE003", 3));
-            add(new LorCardCount("01DE004", 3));
-            add(new LorCardCount("01DE005", 3));
-            add(new LorCardCount("01DE006", 4));
-            add(new LorCardCount("01DE007", 5));
-            add(new LorCardCount("01DE008", 6));
-            add(new LorCardCount("01DE009", 7));
-            add(new LorCardCount("01DE010", 8));
-            add(new LorCardCount("01DE011", 9));
-            add(new LorCardCount("01DE012", 3));
-            add(new LorCardCount("01DE013", 3));
-            add(new LorCardCount("01DE014", 3));
-            add(new LorCardCount("01DE015", 3));
-            add(new LorCardCount("01DE016", 3));
-            add(new LorCardCount("01DE017", 3));
-            add(new LorCardCount("01DE018", 3));
-            add(new LorCardCount("01DE019", 3));
-            add(new LorCardCount("01DE020", 3));
-            add(new LorCardCount("01DE021", 3));
-        }};
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(new LoRCard("01DE002"), 3);
+        deck.addCard(new LoRCard("01DE003"), 3);
+        deck.addCard(new LoRCard("01DE004"), 3);
+        deck.addCard(new LoRCard("01DE005"), 3);
+        deck.addCard(new LoRCard("01DE006"), 4);
+        deck.addCard(new LoRCard("01DE007"), 5);
+        deck.addCard(new LoRCard("01DE008"), 6);
+        deck.addCard(new LoRCard("01DE009"), 7);
+        deck.addCard(new LoRCard("01DE010"), 8);
+        deck.addCard(new LoRCard("01DE011"), 9);
+        deck.addCard(new LoRCard("01DE012"), 3);
+        deck.addCard(new LoRCard("01DE013"), 3);
+        deck.addCard(new LoRCard("01DE014"), 3);
+        deck.addCard(new LoRCard("01DE015"), 3);
+        deck.addCard(new LoRCard("01DE016"), 3);
+        deck.addCard(new LoRCard("01DE017"), 3);
+        deck.addCard(new LoRCard("01DE018"), 3);
+        deck.addCard(new LoRCard("01DE019"), 3);
+        deck.addCard(new LoRCard("01DE020"), 3);
+        deck.addCard(new LoRCard("01DE021"), 3);
         
-        String             code    = LoRDeck.encode(deck);
-        List<LorCardCount> decoded = LoRDeck.decode(code);
+        String  code    = LoRDeckCode.encode(deck);
+        LoRDeck decoded = LoRDeckCode.decode(code);
         
         Assert.assertTrue("Did not produce same deck when re-coded", checkSameDeck(deck, decoded));
     }
@@ -156,13 +149,11 @@ public class TestLorDeck
     @Test
     public void testSingleCard40()
     {
-        List<LorCardCount> deck = new ArrayList<>()
-        {{
-            add(new LorCardCount("01DE002", 40));
-        }};
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(new LoRCard("01DE002"), 40);
         
-        String             code    = LoRDeck.encode(deck);
-        List<LorCardCount> decoded = LoRDeck.decode(code);
+        String  code    = LoRDeckCode.encode(deck);
+        LoRDeck decoded = LoRDeckCode.decode(code);
         
         Assert.assertTrue("Did not produce same deck when re-coded", checkSameDeck(deck, decoded));
     }
@@ -170,32 +161,30 @@ public class TestLorDeck
     @Test
     public void testWorstCaseLength()
     {
-        List<LorCardCount> deck = new ArrayList<>()
-        {{
-            add(new LorCardCount("01DE002", 4));
-            add(new LorCardCount("01DE003", 4));
-            add(new LorCardCount("01DE004", 4));
-            add(new LorCardCount("01DE005", 4));
-            add(new LorCardCount("01DE006", 4));
-            add(new LorCardCount("01DE007", 5));
-            add(new LorCardCount("01DE008", 6));
-            add(new LorCardCount("01DE009", 7));
-            add(new LorCardCount("01DE010", 8));
-            add(new LorCardCount("01DE011", 9));
-            add(new LorCardCount("01DE012", 4));
-            add(new LorCardCount("01DE013", 4));
-            add(new LorCardCount("01DE014", 4));
-            add(new LorCardCount("01DE015", 4));
-            add(new LorCardCount("01DE016", 4));
-            add(new LorCardCount("01DE017", 4));
-            add(new LorCardCount("01DE018", 4));
-            add(new LorCardCount("01DE019", 4));
-            add(new LorCardCount("01DE020", 4));
-            add(new LorCardCount("01DE021", 4));
-        }};
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(new LoRCard("01DE002"), 4);
+        deck.addCard(new LoRCard("01DE003"), 4);
+        deck.addCard(new LoRCard("01DE004"), 4);
+        deck.addCard(new LoRCard("01DE005"), 4);
+        deck.addCard(new LoRCard("01DE006"), 4);
+        deck.addCard(new LoRCard("01DE007"), 5);
+        deck.addCard(new LoRCard("01DE008"), 6);
+        deck.addCard(new LoRCard("01DE009"), 7);
+        deck.addCard(new LoRCard("01DE010"), 8);
+        deck.addCard(new LoRCard("01DE011"), 9);
+        deck.addCard(new LoRCard("01DE012"), 4);
+        deck.addCard(new LoRCard("01DE013"), 4);
+        deck.addCard(new LoRCard("01DE014"), 4);
+        deck.addCard(new LoRCard("01DE015"), 4);
+        deck.addCard(new LoRCard("01DE016"), 4);
+        deck.addCard(new LoRCard("01DE017"), 4);
+        deck.addCard(new LoRCard("01DE018"), 4);
+        deck.addCard(new LoRCard("01DE019"), 4);
+        deck.addCard(new LoRCard("01DE020"), 4);
+        deck.addCard(new LoRCard("01DE021"), 4);
         
-        String             code    = LoRDeck.encode(deck);
-        List<LorCardCount> decoded = LoRDeck.decode(code);
+        String  code    = LoRDeckCode.encode(deck);
+        LoRDeck decoded = LoRDeckCode.decode(code);
         
         Assert.assertTrue("Did not produce same deck when re-coded", checkSameDeck(deck, decoded));
     }
@@ -203,22 +192,18 @@ public class TestLorDeck
     @Test
     public void testOrderDoesNotMatter()
     {
-        List<LorCardCount> deck = new ArrayList<>()
-        {{
-            add(new LorCardCount("01DE002", 1));
-            add(new LorCardCount("01DE003", 2));
-            add(new LorCardCount("02DE003", 3));
-        }};
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(new LoRCard("01DE002"), 1);
+        deck.addCard(new LoRCard("01DE003"), 2);
+        deck.addCard(new LoRCard("02DE003"), 3);
         
-        List<LorCardCount> deck2 = new ArrayList<>()
-        {{
-            add(new LorCardCount("01DE003", 2));
-            add(new LorCardCount("02DE003", 3));
-            add(new LorCardCount("01DE002", 1));
-        }};
+        LoRDeck deck2 = new LoRDeck();
+        deck2.addCard(new LoRCard("01DE003"), 2);
+        deck2.addCard(new LoRCard("02DE003"), 3);
+        deck2.addCard(new LoRCard("01DE002"), 1);
         
-        String code  = LoRDeck.encode(deck);
-        String code2 = LoRDeck.encode(deck2);
+        String code  = LoRDeckCode.encode(deck);
+        String code2 = LoRDeckCode.encode(deck2);
         
         Assert.assertEquals("Order matters?", code, code2);
     }
@@ -226,24 +211,20 @@ public class TestLorDeck
     @Test
     public void testOrderDoesNotMatterMoreThan3()
     {
-        List<LorCardCount> deck = new ArrayList<>()
-        {{
-            add(new LorCardCount("01DE002", 4));
-            add(new LorCardCount("01DE003", 2));
-            add(new LorCardCount("02DE003", 3));
-            add(new LorCardCount("01DE004", 5));
-        }};
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(new LoRCard("01DE002"), 4);
+        deck.addCard(new LoRCard("01DE003"), 2);
+        deck.addCard(new LoRCard("02DE003"), 3);
+        deck.addCard(new LoRCard("01DE004"), 5);
         
-        List<LorCardCount> deck2 = new ArrayList<>()
-        {{
-            add(new LorCardCount("01DE004", 5));
-            add(new LorCardCount("01DE003", 2));
-            add(new LorCardCount("02DE003", 3));
-            add(new LorCardCount("01DE002", 4));
-        }};
+        LoRDeck deck2 = new LoRDeck();
+        deck2.addCard(new LoRCard("01DE004"), 5);
+        deck2.addCard(new LoRCard("01DE003"), 2);
+        deck2.addCard(new LoRCard("02DE003"), 3);
+        deck2.addCard(new LoRCard("01DE002"), 4);
         
-        String code  = LoRDeck.encode(deck);
-        String code2 = LoRDeck.encode(deck2);
+        String code  = LoRDeckCode.encode(deck);
+        String code2 = LoRDeckCode.encode(deck2);
         
         Assert.assertEquals("Order matters?", code, code2);
     }
@@ -251,37 +232,54 @@ public class TestLorDeck
     @Test
     public void testInvalidDecks()
     {
-        List<LorCardCount> deck = new ArrayList<>()
-        {
-            {
-                add(new LorCardCount("01DE02", 1));
-            }
-        };
-        checkDeck(deck);
         
-        deck = new ArrayList<>()
+        try
         {
-            {
-                add(new LorCardCount("01XX202", 1));
-            }
-        };
-        checkDeck(deck);
+            LoRDeck deck = new LoRDeck();
+            deck.addCard(new LoRCard("01DE02"), 1);
+            LoRDeckCode.encode(deck);
+            
+            Assert.fail("Code was 6 chars, but didnt fail");
+        } catch (StringIndexOutOfBoundsException e)
+        {
+            // ok
+        }
         
-        deck = new ArrayList<>()
+        try
         {
-            {
-                add(new LorCardCount("01DE002", 0));
-            }
-        };
-        checkDeck(deck);
+            LoRDeck deck = new LoRDeck();
+            deck.addCard(new LoRCard("01XX202"), 1);
+            LoRDeckCode.encode(deck);
+            
+            Assert.fail("Faction was invalid, but didnt fail");
+        } catch (NoSuchElementException e)
+        {
+            // ok
+        }
         
-        deck = new ArrayList<>()
+        try
         {
-            {
-                add(new LorCardCount("01DE002", -1));
-            }
-        };
-        checkDeck(deck);
+            LoRDeck deck = new LoRDeck();
+            deck.addCard(new LoRCard("01DE002"), 0);
+            LoRDeckCode.encode(deck);
+            
+            Assert.fail("Count is 0, so it shouldnt return a valid card");
+        } catch (IllegalArgumentException e)
+        {
+            // ok
+        }
+        
+        try
+        {
+            LoRDeck deck = new LoRDeck();
+            deck.addCard(new LoRCard("01DE002"), -1);
+            LoRDeckCode.encode(deck);
+            
+            Assert.fail("Count is less than 1, but didnt fail");
+        } catch (IllegalArgumentException e)
+        {
+            // ok
+        }
     }
     
     @Test
@@ -300,7 +298,7 @@ public class TestLorDeck
     {
         try
         {
-            List<LorCardCount> deck = LoRDeck.decode(code);
+            LoRDeck deck = LoRDeckCode.decode(code);
             Assert.fail("Invalid code did not produce an error");
         } catch (IllegalArgumentException e)
         {
@@ -311,47 +309,64 @@ public class TestLorDeck
         }
     }
     
-    
-    private void checkDeck(List<LorCardCount> deck)
+    @Test
+    public void testLargeDeckPrettyPrint()
     {
-        try
-        {
-            LoRDeck.encode(deck);
-            Assert.fail("Invalid deck did not produce an error");
-        } catch (IllegalArgumentException e)
-        {
-            // ok
-        } catch (Exception e)
-        {
-            Assert.fail("Invalid deck produced the wrong exception");
-        }
+        LoRDeck deck = new LoRDeck();
+        deck.addCard(new LoRCard("01DE002"), 3);
+        deck.addCard(new LoRCard("01DE003"), 3);
+        deck.addCard(new LoRCard("01DE004"), 3);
+        deck.addCard(new LoRCard("01DE005"), 3);
+        deck.addCard(new LoRCard("01DE006"), 4);
+        deck.addCard(new LoRCard("01DE007"), 5);
+        deck.addCard(new LoRCard("01DE008"), 6);
+        deck.addCard(new LoRCard("01DE009"), 7);
+        deck.addCard(new LoRCard("01DE010"), 8);
+        deck.addCard(new LoRCard("01DE011"), 9);
+        deck.addCard(new LoRCard("01DE012"), 3);
+        deck.addCard(new LoRCard("01DE013"), 3);
+        deck.addCard(new LoRCard("01DE014"), 3);
+        deck.addCard(new LoRCard("01DE015"), 3);
+        deck.addCard(new LoRCard("01DE016"), 3);
+        deck.addCard(new LoRCard("01DE017"), 3);
+        deck.addCard(new LoRCard("01DE018"), 3);
+        deck.addCard(new LoRCard("01DE019"), 3);
+        deck.addCard(new LoRCard("01DE020"), 3);
+        deck.addCard(new LoRCard("01DE021"), 3);
+        
+        System.out.println(deck.toPrettyString());
     }
     
-    private boolean checkSameDeck(List<LorCardCount> a, List<LorCardCount> b)
+    
+    private boolean checkSameDeck(LoRDeck a, LoRDeck b)
     {
-        if (a.size() != b.size())
+        if (a.getDeck().size() != b.getDeck().size())
         {
             return false;
         }
         
-        for (LorCardCount bCard : b)
+        for (LoRCard cardA : a.getDeck().keySet())
         {
-            boolean found = false;
-            for (LorCardCount aCard : a)
-            {
-                if (aCard.equals(bCard))
-                {
-                    found = true;
-                    break;
-                }
-            }
-            
-            if (!found)
+            if (!b.getDeck().containsKey(cardA))
             {
                 return false;
+            } else
+            {
+                Integer cardACount = a.getDeck().get(cardA);
+                Integer cardBCount = b.getDeck().get(cardA);
+                
+                if (cardACount == null)
+                {
+                    return false;
+                }
+                
+                if (cardACount.intValue() != cardBCount.intValue())
+                {
+                    return false;
+                }
             }
-            
         }
+        
         return true;
     }
 }

@@ -1,4 +1,4 @@
-package no.stelar7.lor;
+package no.stelar7.lor.utils;
 
 import java.util.*;
 
