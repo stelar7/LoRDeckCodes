@@ -31,7 +31,7 @@ public class TestLorDeck
                 while (scanner.hasNextLine() && !(line = scanner.nextLine()).equalsIgnoreCase(""))
                 {
                     String[] parts = line.split(":");
-                    deck.addCard(new LoRCard(parts[1]), Integer.parseInt(parts[0]));
+                    deck.addCard(LoRCard.create(parts[1]), Integer.parseInt(parts[0]));
                 }
                 decks.add(deck);
             }
@@ -63,7 +63,7 @@ public class TestLorDeck
     public void testSmallDeck()
     {
         LoRDeck deck = new LoRDeck();
-        deck.addCard(new LoRCard("01DE002"), 3);
+        deck.addCard(LoRCard.create("01DE002"), 3);
         
         String  code    = LoRDeckCode.encode(deck);
         LoRDeck decoded = LoRDeckCode.decode(code);
@@ -75,26 +75,26 @@ public class TestLorDeck
     public void testLargeDeck()
     {
         LoRDeck deck = new LoRDeck();
-        deck.addCard(new LoRCard("01DE002"), 3);
-        deck.addCard(new LoRCard("01DE003"), 3);
-        deck.addCard(new LoRCard("01DE004"), 3);
-        deck.addCard(new LoRCard("01DE005"), 3);
-        deck.addCard(new LoRCard("01DE006"), 3);
-        deck.addCard(new LoRCard("01DE007"), 3);
-        deck.addCard(new LoRCard("01DE008"), 3);
-        deck.addCard(new LoRCard("01DE009"), 3);
-        deck.addCard(new LoRCard("01DE010"), 3);
-        deck.addCard(new LoRCard("01DE011"), 3);
-        deck.addCard(new LoRCard("01DE012"), 3);
-        deck.addCard(new LoRCard("01DE013"), 3);
-        deck.addCard(new LoRCard("01DE014"), 3);
-        deck.addCard(new LoRCard("01DE015"), 3);
-        deck.addCard(new LoRCard("01DE016"), 3);
-        deck.addCard(new LoRCard("01DE017"), 3);
-        deck.addCard(new LoRCard("01DE018"), 3);
-        deck.addCard(new LoRCard("01DE019"), 3);
-        deck.addCard(new LoRCard("01DE020"), 3);
-        deck.addCard(new LoRCard("01DE021"), 3);
+        deck.addCard(LoRCard.create("01DE002"), 3);
+        deck.addCard(LoRCard.create("01DE003"), 3);
+        deck.addCard(LoRCard.create("01DE004"), 3);
+        deck.addCard(LoRCard.create("01DE005"), 3);
+        deck.addCard(LoRCard.create("01DE006"), 3);
+        deck.addCard(LoRCard.create("01DE007"), 3);
+        deck.addCard(LoRCard.create("01DE008"), 3);
+        deck.addCard(LoRCard.create("01DE009"), 3);
+        deck.addCard(LoRCard.create("01DE010"), 3);
+        deck.addCard(LoRCard.create("01DE011"), 3);
+        deck.addCard(LoRCard.create("01DE012"), 3);
+        deck.addCard(LoRCard.create("01DE013"), 3);
+        deck.addCard(LoRCard.create("01DE014"), 3);
+        deck.addCard(LoRCard.create("01DE015"), 3);
+        deck.addCard(LoRCard.create("01DE016"), 3);
+        deck.addCard(LoRCard.create("01DE017"), 3);
+        deck.addCard(LoRCard.create("01DE018"), 3);
+        deck.addCard(LoRCard.create("01DE019"), 3);
+        deck.addCard(LoRCard.create("01DE020"), 3);
+        deck.addCard(LoRCard.create("01DE021"), 3);
         
         String  code    = LoRDeckCode.encode(deck);
         LoRDeck decoded = LoRDeckCode.decode(code);
@@ -107,7 +107,7 @@ public class TestLorDeck
     public void testMoreThan3Small()
     {
         LoRDeck deck = new LoRDeck();
-        deck.addCard(new LoRCard("01DE002"), 4);
+        deck.addCard(LoRCard.create("01DE002"), 4);
         
         String  code    = LoRDeckCode.encode(deck);
         LoRDeck decoded = LoRDeckCode.decode(code);
@@ -119,26 +119,26 @@ public class TestLorDeck
     public void testMoreThan3Large()
     {
         LoRDeck deck = new LoRDeck();
-        deck.addCard(new LoRCard("01DE002"), 3);
-        deck.addCard(new LoRCard("01DE003"), 3);
-        deck.addCard(new LoRCard("01DE004"), 3);
-        deck.addCard(new LoRCard("01DE005"), 3);
-        deck.addCard(new LoRCard("01DE006"), 4);
-        deck.addCard(new LoRCard("01DE007"), 5);
-        deck.addCard(new LoRCard("01DE008"), 6);
-        deck.addCard(new LoRCard("01DE009"), 7);
-        deck.addCard(new LoRCard("01DE010"), 8);
-        deck.addCard(new LoRCard("01DE011"), 9);
-        deck.addCard(new LoRCard("01DE012"), 3);
-        deck.addCard(new LoRCard("01DE013"), 3);
-        deck.addCard(new LoRCard("01DE014"), 3);
-        deck.addCard(new LoRCard("01DE015"), 3);
-        deck.addCard(new LoRCard("01DE016"), 3);
-        deck.addCard(new LoRCard("01DE017"), 3);
-        deck.addCard(new LoRCard("01DE018"), 3);
-        deck.addCard(new LoRCard("01DE019"), 3);
-        deck.addCard(new LoRCard("01DE020"), 3);
-        deck.addCard(new LoRCard("01DE021"), 3);
+        deck.addCard(LoRCard.create("01DE002"), 3);
+        deck.addCard(LoRCard.create("01DE003"), 3);
+        deck.addCard(LoRCard.create("01DE004"), 3);
+        deck.addCard(LoRCard.create("01DE005"), 3);
+        deck.addCard(LoRCard.create("01DE006"), 4);
+        deck.addCard(LoRCard.create("01DE007"), 5);
+        deck.addCard(LoRCard.create("01DE008"), 6);
+        deck.addCard(LoRCard.create("01DE009"), 7);
+        deck.addCard(LoRCard.create("01DE010"), 8);
+        deck.addCard(LoRCard.create("01DE011"), 9);
+        deck.addCard(LoRCard.create("01DE012"), 3);
+        deck.addCard(LoRCard.create("01DE013"), 3);
+        deck.addCard(LoRCard.create("01DE014"), 3);
+        deck.addCard(LoRCard.create("01DE015"), 3);
+        deck.addCard(LoRCard.create("01DE016"), 3);
+        deck.addCard(LoRCard.create("01DE017"), 3);
+        deck.addCard(LoRCard.create("01DE018"), 3);
+        deck.addCard(LoRCard.create("01DE019"), 3);
+        deck.addCard(LoRCard.create("01DE020"), 3);
+        deck.addCard(LoRCard.create("01DE021"), 3);
         
         String  code    = LoRDeckCode.encode(deck);
         LoRDeck decoded = LoRDeckCode.decode(code);
@@ -150,7 +150,7 @@ public class TestLorDeck
     public void testSingleCard40()
     {
         LoRDeck deck = new LoRDeck();
-        deck.addCard(new LoRCard("01DE002"), 40);
+        deck.addCard(LoRCard.create("01DE002"), 40);
         
         String  code    = LoRDeckCode.encode(deck);
         LoRDeck decoded = LoRDeckCode.decode(code);
@@ -162,26 +162,26 @@ public class TestLorDeck
     public void testWorstCaseLength()
     {
         LoRDeck deck = new LoRDeck();
-        deck.addCard(new LoRCard("01DE002"), 4);
-        deck.addCard(new LoRCard("01DE003"), 4);
-        deck.addCard(new LoRCard("01DE004"), 4);
-        deck.addCard(new LoRCard("01DE005"), 4);
-        deck.addCard(new LoRCard("01DE006"), 4);
-        deck.addCard(new LoRCard("01DE007"), 5);
-        deck.addCard(new LoRCard("01DE008"), 6);
-        deck.addCard(new LoRCard("01DE009"), 7);
-        deck.addCard(new LoRCard("01DE010"), 8);
-        deck.addCard(new LoRCard("01DE011"), 9);
-        deck.addCard(new LoRCard("01DE012"), 4);
-        deck.addCard(new LoRCard("01DE013"), 4);
-        deck.addCard(new LoRCard("01DE014"), 4);
-        deck.addCard(new LoRCard("01DE015"), 4);
-        deck.addCard(new LoRCard("01DE016"), 4);
-        deck.addCard(new LoRCard("01DE017"), 4);
-        deck.addCard(new LoRCard("01DE018"), 4);
-        deck.addCard(new LoRCard("01DE019"), 4);
-        deck.addCard(new LoRCard("01DE020"), 4);
-        deck.addCard(new LoRCard("01DE021"), 4);
+        deck.addCard(LoRCard.create("01DE002"), 4);
+        deck.addCard(LoRCard.create("01DE003"), 4);
+        deck.addCard(LoRCard.create("01DE004"), 4);
+        deck.addCard(LoRCard.create("01DE005"), 4);
+        deck.addCard(LoRCard.create("01DE006"), 4);
+        deck.addCard(LoRCard.create("01DE007"), 5);
+        deck.addCard(LoRCard.create("01DE008"), 6);
+        deck.addCard(LoRCard.create("01DE009"), 7);
+        deck.addCard(LoRCard.create("01DE010"), 8);
+        deck.addCard(LoRCard.create("01DE011"), 9);
+        deck.addCard(LoRCard.create("01DE012"), 4);
+        deck.addCard(LoRCard.create("01DE013"), 4);
+        deck.addCard(LoRCard.create("01DE014"), 4);
+        deck.addCard(LoRCard.create("01DE015"), 4);
+        deck.addCard(LoRCard.create("01DE016"), 4);
+        deck.addCard(LoRCard.create("01DE017"), 4);
+        deck.addCard(LoRCard.create("01DE018"), 4);
+        deck.addCard(LoRCard.create("01DE019"), 4);
+        deck.addCard(LoRCard.create("01DE020"), 4);
+        deck.addCard(LoRCard.create("01DE021"), 4);
         
         String  code    = LoRDeckCode.encode(deck);
         LoRDeck decoded = LoRDeckCode.decode(code);
@@ -193,14 +193,14 @@ public class TestLorDeck
     public void testOrderDoesNotMatter()
     {
         LoRDeck deck = new LoRDeck();
-        deck.addCard(new LoRCard("01DE002"), 1);
-        deck.addCard(new LoRCard("01DE003"), 2);
-        deck.addCard(new LoRCard("02DE003"), 3);
+        deck.addCard(LoRCard.create("01DE002"), 1);
+        deck.addCard(LoRCard.create("01DE003"), 2);
+        deck.addCard(LoRCard.create("02DE003"), 3);
         
         LoRDeck deck2 = new LoRDeck();
-        deck2.addCard(new LoRCard("01DE003"), 2);
-        deck2.addCard(new LoRCard("02DE003"), 3);
-        deck2.addCard(new LoRCard("01DE002"), 1);
+        deck2.addCard(LoRCard.create("01DE003"), 2);
+        deck2.addCard(LoRCard.create("02DE003"), 3);
+        deck2.addCard(LoRCard.create("01DE002"), 1);
         
         String code  = LoRDeckCode.encode(deck);
         String code2 = LoRDeckCode.encode(deck2);
@@ -212,16 +212,16 @@ public class TestLorDeck
     public void testOrderDoesNotMatterMoreThan3()
     {
         LoRDeck deck = new LoRDeck();
-        deck.addCard(new LoRCard("01DE002"), 4);
-        deck.addCard(new LoRCard("01DE003"), 2);
-        deck.addCard(new LoRCard("02DE003"), 3);
-        deck.addCard(new LoRCard("01DE004"), 5);
+        deck.addCard(LoRCard.create("01DE002"), 4);
+        deck.addCard(LoRCard.create("01DE003"), 2);
+        deck.addCard(LoRCard.create("02DE003"), 3);
+        deck.addCard(LoRCard.create("01DE004"), 5);
         
         LoRDeck deck2 = new LoRDeck();
-        deck2.addCard(new LoRCard("01DE004"), 5);
-        deck2.addCard(new LoRCard("01DE003"), 2);
-        deck2.addCard(new LoRCard("02DE003"), 3);
-        deck2.addCard(new LoRCard("01DE002"), 4);
+        deck2.addCard(LoRCard.create("01DE004"), 5);
+        deck2.addCard(LoRCard.create("01DE003"), 2);
+        deck2.addCard(LoRCard.create("02DE003"), 3);
+        deck2.addCard(LoRCard.create("01DE002"), 4);
         
         String code  = LoRDeckCode.encode(deck);
         String code2 = LoRDeckCode.encode(deck2);
@@ -232,35 +232,22 @@ public class TestLorDeck
     @Test
     public void testInvalidDecks()
     {
+        LoRDeck deck = new LoRDeck();
+        
+        
+        deck.addCard(LoRCard.create("01DE02"), 1);
+        String code = LoRDeckCode.encode(deck);
+        Assert.assertNull("Code was 6 chars, but didnt fail", code);
+        
+        deck.clear();
+        deck.addCard(LoRCard.create("01XX202"), 1);
+        code = LoRDeckCode.encode(deck);
+        Assert.assertNull("Faction was invalid, but didnt fail", code);
         
         try
         {
-            LoRDeck deck = new LoRDeck();
-            deck.addCard(new LoRCard("01DE02"), 1);
-            LoRDeckCode.encode(deck);
-            
-            Assert.fail("Code was 6 chars, but didnt fail");
-        } catch (StringIndexOutOfBoundsException e)
-        {
-            // ok
-        }
-        
-        try
-        {
-            LoRDeck deck = new LoRDeck();
-            deck.addCard(new LoRCard("01XX202"), 1);
-            LoRDeckCode.encode(deck);
-            
-            Assert.fail("Faction was invalid, but didnt fail");
-        } catch (NoSuchElementException e)
-        {
-            // ok
-        }
-        
-        try
-        {
-            LoRDeck deck = new LoRDeck();
-            deck.addCard(new LoRCard("01DE002"), 0);
+            deck.clear();
+            deck.addCard(LoRCard.create("01DE002"), 0);
             LoRDeckCode.encode(deck);
             
             Assert.fail("Count is 0, so it shouldnt return a valid card");
@@ -271,8 +258,8 @@ public class TestLorDeck
         
         try
         {
-            LoRDeck deck = new LoRDeck();
-            deck.addCard(new LoRCard("01DE002"), -1);
+            deck.clear();
+            deck.addCard(LoRCard.create("01DE002"), -1);
             LoRDeckCode.encode(deck);
             
             Assert.fail("Count is less than 1, but didnt fail");
@@ -313,26 +300,26 @@ public class TestLorDeck
     public void testLargeDeckPrettyPrint()
     {
         LoRDeck deck = new LoRDeck();
-        deck.addCard(new LoRCard("01DE002"), 3);
-        deck.addCard(new LoRCard("01DE003"), 3);
-        deck.addCard(new LoRCard("01DE004"), 3);
-        deck.addCard(new LoRCard("01DE005"), 3);
-        deck.addCard(new LoRCard("01DE006"), 4);
-        deck.addCard(new LoRCard("01DE007"), 5);
-        deck.addCard(new LoRCard("01DE008"), 6);
-        deck.addCard(new LoRCard("01DE009"), 7);
-        deck.addCard(new LoRCard("01DE010"), 8);
-        deck.addCard(new LoRCard("01DE011"), 9);
-        deck.addCard(new LoRCard("01DE012"), 3);
-        deck.addCard(new LoRCard("01DE013"), 3);
-        deck.addCard(new LoRCard("01DE014"), 3);
-        deck.addCard(new LoRCard("01DE015"), 3);
-        deck.addCard(new LoRCard("01DE016"), 3);
-        deck.addCard(new LoRCard("01DE017"), 3);
-        deck.addCard(new LoRCard("01DE018"), 3);
-        deck.addCard(new LoRCard("01DE019"), 3);
-        deck.addCard(new LoRCard("01DE020"), 3);
-        deck.addCard(new LoRCard("01DE021"), 3);
+        deck.addCard(LoRCard.create("01DE002"), 3);
+        deck.addCard(LoRCard.create("01DE003"), 3);
+        deck.addCard(LoRCard.create("01DE004"), 3);
+        deck.addCard(LoRCard.create("01DE005"), 3);
+        deck.addCard(LoRCard.create("01DE006"), 4);
+        deck.addCard(LoRCard.create("01DE007"), 5);
+        deck.addCard(LoRCard.create("01DE008"), 6);
+        deck.addCard(LoRCard.create("01DE009"), 7);
+        deck.addCard(LoRCard.create("01DE010"), 8);
+        deck.addCard(LoRCard.create("01DE011"), 9);
+        deck.addCard(LoRCard.create("01DE012"), 3);
+        deck.addCard(LoRCard.create("01DE013"), 3);
+        deck.addCard(LoRCard.create("01DE014"), 3);
+        deck.addCard(LoRCard.create("01DE015"), 3);
+        deck.addCard(LoRCard.create("01DE016"), 3);
+        deck.addCard(LoRCard.create("01DE017"), 3);
+        deck.addCard(LoRCard.create("01DE018"), 3);
+        deck.addCard(LoRCard.create("01DE019"), 3);
+        deck.addCard(LoRCard.create("01DE020"), 3);
+        deck.addCard(LoRCard.create("01DE021"), 3);
         
         System.out.println(deck.toPrettyString());
     }

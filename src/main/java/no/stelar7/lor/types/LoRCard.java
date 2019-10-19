@@ -10,18 +10,33 @@ public class LoRCard
     private final LoRFaction faction;
     private final int        id;
     
-    
-    public LoRCard(String cardCode)
+    public static LoRCard create(String cardCode)
     {
-        this(cardCode.substring(0, 2), cardCode.substring(2, 4), cardCode.substring(4, 7));
+        if (cardCode.length() < 7)
+        {
+            return null;
+        }
+        
+        return create(cardCode.substring(0, 2), cardCode.substring(2, 4), cardCode.substring(4, 7));
+        
     }
     
-    public LoRCard(String setString, String factionString, String numberString)
+    public static LoRCard create(String setString, String factionString, String numberString)
     {
-        this(Integer.parseInt(setString), LoRFaction.fromCode(factionString), Integer.parseInt(numberString));
+        try
+        {
+            int        set     = Integer.parseInt(setString);
+            LoRFaction faction = LoRFaction.fromCode(factionString);
+            int        id      = Integer.parseInt(numberString);
+            
+            return new LoRCard(set, faction, id);
+        } catch (Exception e)
+        {
+            return null;
+        }
     }
     
-    public LoRCard(int set, LoRFaction faction, int id)
+    private LoRCard(int set, LoRFaction faction, int id)
     {
         this.set = set;
         this.faction = faction;

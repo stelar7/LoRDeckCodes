@@ -36,6 +36,14 @@ public class LoRDeck
     }
     
     /**
+     * Removes all cards from the deck
+     */
+    public void clear()
+    {
+        cards.clear();
+    }
+    
+    /**
      * Count the total amount of cards in the deck
      */
     public int deckSize()
@@ -88,5 +96,4 @@ public class LoRDeck
                "cards=" + cards +
                '}';
     }
-    
 }

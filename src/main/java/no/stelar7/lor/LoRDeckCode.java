@@ -42,7 +42,7 @@ public class LoRDeckCode
                     String factionString = LoRFaction.fromID(faction).getShortCode();
                     String cardString    = Utilities.padLeft(String.valueOf(card), "0", 3);
                     
-                    deck.addCard(new LoRCard(setString, factionString, cardString), i);
+                    deck.addCard(LoRCard.create(setString, factionString, cardString), i);
                 }
             }
         }
@@ -58,7 +58,7 @@ public class LoRDeckCode
             String factionString = LoRFaction.fromID(faction).getShortCode();
             String numberString  = Utilities.padLeft(String.valueOf(number), "0", 3);
             
-            deck.addCard(new LoRCard(setString, factionString, numberString), count);
+            deck.addCard(LoRCard.create(setString, factionString, numberString), count);
         }
         
         return deck;
@@ -67,6 +67,11 @@ public class LoRDeckCode
     public static String encode(LoRDeck deck)
     {
         List<Integer> result = new ArrayList<>();
+        
+        if (deck.getDeck().containsKey(null))
+        {
+            return null;
+        }
         
         // format and version = 0b00010001 = 0x11 = 17
         result.add(0x11);
